@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Ebook Reader</title>
+</head>
+<body>
+    <ul>
+        <li><a href="FolderText/Text/Section0003.html">Chapter 1</a></li>
+        <li><a href="FolderText/Text/Section0004.html">Chapter 2</a></li>
+        <li><a href="FolderText/Text/Section0005.html">Chapter 3</a></li>
+        <li><a href="FolderText/Text/Section0006.html">Chapter 4</a></li>
+        <li><a href="FolderText/Text/Section0007.html">Chapter 5</a></li>
+        <li><a href="FolderText/Text/Section0008.html">Chapter 6</a></li>
+        <li><a href="FolderText/Text/Section0009.html">Chapter 7</a></li>
+        <li><a href="FolderText/Text/Section0010.html">Chapter 8</a></li>
+        <li><a href="FolderText/Text/Section0011.html">Chapter 9</a></li>
+        <li><a href="FolderText/Text/Section0012.html">Chapter 10</a></li>
+        <li><a href="FolderText/Text/Section0013.html">Chapter 11</a></li>
+        <li><a href="FolderText/Text/Section0014.html">Chapter 12</a></li>
+        <li><a href="FolderText/Text/Section0015.html">Chapter 13</a></li>
+        <li><a href="FolderText/Text/Section0016.html">Chapter 14</a></li>
+        <li><a href="FolderText/Text/Section0017.html">Chapter 15</a></li>
+        <li><a href="FolderText/Text/Section0018.html">Chapter 16</a></li>
+        <li><a href="FolderText/Text/Section0019.html">Chapter 17</a></li>
+    </ul>
+
+    <div class="bar"></div>
+
+    <h1>TUTORIAL</h1>
+
+
+
+    <img src="tutorialRed.PNG" alt="">
+
+    <h2>COPY ALL THIS TEXT. CLICK ON A CHAPTER. WHEN YOU GO TO THE NEW PAGE, RIGHT CLICK AND SELECT "INSPECT". OPEN THE CONSOLE AND PASTE THE TEXT AND PRESS ENTER. PRESS F11 TO FULLSCREEN AND HIDE BROWSER TABS.</h2>
+
+    <div class="text">
+const body = document.body;
+
+const ArrayOfClasses = [
+  "codeareaSolidBackground",
+  "codeareaMiddle",
+  "nav",
+  "navTop",
+  "navBottom",
+  "files",
+  "fileTop",
+  "fileBottom",
+  "codeareaLeft",
+  "codeareaRightInfinite",
+  "codeareaRight",
+  "footer",
+  "footerLeft",
+  "footerRight",
+];
+
+ArrayOfClasses.forEach((clas, index) => {
+  let div = document.createElement("div");
+  div.classList.add(`${ArrayOfClasses[index]}`, "FakeSite");
+  body.appendChild(div);
+});
+
+const texts = document.querySelectorAll("p");
+let pageText = "PLACEHOLDER ";
+texts.forEach((text) => {
+  pageText += text.innerText.replace(/\s\s+/g, " ") + " ";
+  text.remove();
+});
+
+const textArray = pageText.split(" ");
+const textSize = textArray.length;
+
+let wordsPerSecond = 4;
+let wordIndex = 1;
+
+const word = document.createElement("p");
+word.innerText = textArray[1];
+body.appendChild(word);
+
+const currentIndex = document.createElement("div");
+currentIndex.classList.add("wordIndex", "int");
+body.appendChild(currentIndex);
+
+const wordCount = document.createElement("div");
+wordCount.classList.add("wordCount", "int");
+wordCount.innerText = textSize;
+body.appendChild(wordCount);
+
+const IndexTo0 = document.createElement("div");
+IndexTo0.classList.add("button", "buttonStart");
+IndexTo0.innerText = '"Start"';
+body.appendChild(IndexTo0);
+IndexTo0.addEventListener("click", () => {
+  wordIndex = 1;
+  updateWord();
+  updateCurrentIndex();
+});
+
+const IndexSubtract1000 = document.createElement("div");
+IndexSubtract1000.classList.add("button", "buttonNeg1000");
+IndexSubtract1000.innerText = "-1000";
+body.appendChild(IndexSubtract1000);
+IndexSubtract1000.addEventListener("click", () => {
+  changeWordIndexBy(-1000);
+  updateWord();
+  updateCurrentIndex();
+});
+
+const IndexSubtract100 = document.createElement("div");
+IndexSubtract100.classList.add("button", "buttonNeg100");
+IndexSubtract100.innerText = "-100";
+body.appendChild(IndexSubtract100);
+IndexSubtract100.addEventListener("click", () => {
+  changeWordIndexBy(-100);
+  updateWord();
+  updateCurrentIndex();
+});
+
+const IndexSubtract10 = document.createElement("div");
+IndexSubtract10.classList.add("button", "buttonNeg10");
+IndexSubtract10.innerText = "-10";
+body.appendChild(IndexSubtract10);
+IndexSubtract10.addEventListener("click", () => {
+  changeWordIndexBy(-10);
+  updateWord();
+  updateCurrentIndex();
+});
+
+const IndexAdd10 = document.createElement("div");
+IndexAdd10.classList.add("button", "button10");
+IndexAdd10.innerText = "+10";
+body.appendChild(IndexAdd10);
+IndexAdd10.addEventListener("click", () => {
+  changeWordIndexBy(10);
+  updateWord();
+  updateCurrentIndex();
+});
+
+const IndexAdd100 = document.createElement("div");
+IndexAdd100.classList.add("button", "button100");
+IndexAdd100.innerText = "+100";
+body.appendChild(IndexAdd100);
+IndexAdd100.addEventListener("click", () => {
+  changeWordIndexBy(100);
+  updateWord();
+  updateCurrentIndex();
+});
+
+const IndexAdd1000 = document.createElement("div");
+IndexAdd1000.classList.add("button", "button1000");
+IndexAdd1000.innerText = "+1000";
+body.appendChild(IndexAdd1000);
+IndexAdd1000.addEventListener("click", () => {
+  changeWordIndexBy(1000);
+  updateWord();
+  updateCurrentIndex();
+});
+
+let stopText = true;
+let isSpaceDown = false;
+
+body.onkeydown = function (e) {
+  if ((e.key == " " || e.code == "Space" || e.keyCode == 32) && !isSpaceDown) {
+    isSpaceDown = true;
+    stopText = !stopText;
+    if (!stopText) {
+      asyncCall();
+    }
+  }
+};
+
+body.onkeyup = function () {
+  isSpaceDown = false;
+};
+
+function newWord(i) {
+  word.innerText = textArray[i];
+}
+
+function newWord() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`${textArray[wordIndex]}`);
+      wordIndex++;
+    }, (((new_count(textArray[wordIndex - 1]) + checkPunctuation(textArray[wordIndex - 1])) * 0.7) * 1000) / wordsPerSecond);
+  });
+}
+
+function checkPunctuation(word) {
+  if (
+    word.endsWith(".") ||
+    word.endsWith("!") ||
+    word.endsWith("?") ||
+    word.endsWith("’") ||
+    word.endsWith('"') ||
+    word.endsWith("'") ||
+    word.endsWith("”")
+  )
+    return 2;
+  if (word.endsWith(",") || word.endsWith(";")) return 1;
+  return 0;
+}
+
+async function asyncCall() {
+  updateCurrentIndex();
+  word.innerText = await newWord();
+
+  if (!stopText) {
+    asyncCall();
+  }
+}
+
+function new_count(word) {
+    word = word.toLowerCase();
+    if (word.length <= 3) {
+      return 1;
+    }
+    word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, "");
+    word = word.replace(/^y/, "");
+    if (word.match(/[aeiouy]{1,2}/g) == null) return 0;
+    return word.match(/[aeiouy]{1,2}/g).length;
+  }
+
+function updateWord() {
+  word.innerText = textArray[wordIndex];
+}
+
+function updateCurrentIndex() {
+  currentIndex.innerText = wordIndex - 1;
+}
+
+function changeWordIndexBy(num) {
+  if (wordIndex + num < textSize && wordIndex + num > 0) {
+    wordIndex += num;
+  }
+}
+</div>
+</body>
+</html>
